@@ -1,1 +1,1 @@
-py generic.py
+python generic.py
