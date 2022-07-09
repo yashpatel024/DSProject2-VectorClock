@@ -47,7 +47,7 @@ if __name__ == "__main__":
     port_list = json.loads(argv[2])
     node_count = len(port_list)
 
-    os.system(f"title Node-{self_id}")
+    os.system(f"title Node-{self_id} \tPort-{port_list[self_id-1]}")
 
     clock_val = [0]*node_count
 
