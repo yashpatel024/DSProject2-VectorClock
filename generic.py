@@ -1,18 +1,15 @@
 import socket
 import os
-import signal
 import json
 import time
 
-import multiprocessing
-
-
-NODE_COUNT = 3
 PYTHON_COMMAND = "python"
 
-n = 0
 
-
+'''
+* To check if current_port is being used by other process
+* In case of blocked port, method return True
+'''
 def is_blocked(port):
     try:
         sct = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,6 +20,9 @@ def is_blocked(port):
         return True
 
 
+'''
+* Return list of ports available for #number of Nodes available
+'''
 def get_ports(curr_port, size):
     ports = []
 
@@ -33,38 +33,17 @@ def get_ports(curr_port, size):
     return ports
 
 
+'''
+* To open each node in different processes where it'll have unique port number assign for communication
+'''
 def spawn_windows(self_id, port_list):
     os.system(f'start cmd /k {PYTHON_COMMAND} node.py {self_id} "{json.dumps(port_list)}"')
 
-# TODO: Remove
 
-
-ports_to_block = [8001, 8002, 8008]
-blocked_connections = []
-
-
-def block_ports():
-    for port in ports_to_block:
-        sct = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sct.bind(("localhost", port))
-        # sct.listen(10)
-        blocked_connections.append(sct)
-        print("1")
-
-
-def unblock_blocked():
-    for con in blocked_connections:
-        con.close()
-
-# TODO: Remove
-
-
-block_ports()
 port_list = []
 curr_port = 8000
 
 NODE_COUNT = int(input("Enter total numbers of client machine: "))
-
 port_list = get_ports(curr_port, NODE_COUNT)
 
 for i in range(NODE_COUNT):
@@ -72,4 +51,3 @@ for i in range(NODE_COUNT):
 
 print("Nodes Created...\nExiting !!!")
 time.sleep(2)
-unblock_blocked()
