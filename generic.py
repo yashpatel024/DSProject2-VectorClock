@@ -19,7 +19,6 @@ def is_blocked(port):
     except Exception as err:
         return True
 
-
 '''
 * Return list of ports available for #number of Nodes available
 '''
@@ -32,7 +31,6 @@ def get_ports(curr_port, size):
         curr_port += 1
     return ports
 
-
 '''
 * To open each node in different processes where it'll have unique port number assign for communication
 '''
@@ -40,14 +38,15 @@ def spawn_windows(self_id, port_list):
     os.system(f'start cmd /k {PYTHON_COMMAND} node.py {self_id} "{json.dumps(port_list)}"')
 
 
-port_list = []
-curr_port = 8000
+if __name__ == "__main__":
+    NODE_COUNT = int(input("Enter total numbers of client machine (Nodes): "))
 
-NODE_COUNT = int(input("Enter total numbers of client machine: "))
-port_list = get_ports(curr_port, NODE_COUNT)
+    port_list = []
+    curr_port = 8000
+    port_list = get_ports(curr_port, NODE_COUNT)
 
-for i in range(NODE_COUNT):
-    spawn_windows(str(i+1), port_list)
+    print("Nodes Created\nExiting...")
+    time.sleep(1)
 
-print("Nodes Created...\nExiting !!!")
-time.sleep(2)
+    for i in range(NODE_COUNT):
+        spawn_windows(str(i+1), port_list)
