@@ -45,11 +45,6 @@ def sender(clock_val, self_id, port_list):
 
     print("Finished")
 
-
-def receiver():
-    time.sleep(int(argv[1]))
-
-
 if __name__ == "__main__":
     self_id = int(argv[1])
     port_list = json.loads(argv[2])

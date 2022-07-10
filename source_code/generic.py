@@ -4,7 +4,7 @@ import json
 import time
 
 PYTHON_COMMAND = "python"
-
+NODE_COUNT = 4
 
 '''
 * To check if current_port is being used by other process
@@ -39,13 +39,13 @@ def spawn_windows(self_id, port_list):
 
 
 if __name__ == "__main__":
-    NODE_COUNT = int(input("Enter total numbers of client machine (Nodes): "))
+    # NODE_COUNT = int(input("Enter total numbers of client machine (Nodes): "))
 
     port_list = []
     curr_port = 8000
     port_list = get_ports(curr_port, NODE_COUNT)
 
-    print("Nodes Created\nExiting...")
+    print(f"Total {NODE_COUNT} Nodes Created\nExiting...")
     time.sleep(1)
 
     for i in range(NODE_COUNT):
