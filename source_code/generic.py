@@ -35,7 +35,7 @@ def get_ports(curr_port, size):
 * To open each node in different processes where it'll have unique port number assign for communication
 '''
 def spawn_windows(self_id, port_list):
-    os.system(f'start cmd /k {PYTHON_COMMAND} node.py {self_id} "{json.dumps(port_list)}"')
+    os.system(f'start cmd /k {PYTHON_COMMAND} source_code\\node.py {self_id} "{json.dumps(port_list)}"')
 
 
 if __name__ == "__main__":

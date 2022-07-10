@@ -1,1 +1,1 @@
-python generic.py
+python source_code\generic.py

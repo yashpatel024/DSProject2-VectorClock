@@ -1,9 +1,12 @@
 from socket import socket, AF_INET, SOCK_STREAM
 import json
 
+# Localhost IP
 IP = "127.0.0.1"
 
-
+'''
+* Help command
+'''
 def print_help(total_client):
     width = 60
     print()
@@ -18,22 +21,34 @@ def print_help(total_client):
     print("~"*width, end="\n\n")
 
 
+'''
+* When Node calls for internal process
+'''
 def internal_process(self_id, message):
     print(f"Internal process completed of {self_id} with message:")
     print(message)
 
 
+'''
+* Increament of Vector clock for node specific id
+'''
 def increament_clock(clock_val, id):
     clock_val[id-1] += 1
     return clock_val
 
 
+'''
+* Comparing sender and receiver clock while communication to assign new Vector_Clock to receiver
+'''
 def compare_clock(self_clock, sender_clock):
     for i in range(len(self_clock)):
         self_clock[i] = max(self_clock[i], sender_clock[i])
     return self_clock
 
 
+'''
+* Listener for node
+'''
 def create_server(self_id, port_list, clock_val):
     with socket(AF_INET, SOCK_STREAM) as sock:
         sock.bind((IP, port_list[self_id-1]))
@@ -54,6 +69,9 @@ def create_server(self_id, port_list, clock_val):
             conn.close()
 
 
+'''
+* Send message from one node to other
+'''
 def send_request(sender_id, port, clock_val, message):
     json_data = {
         "sender_clock": clock_val,

@@ -5,7 +5,9 @@ import threading
 from sys import argv
 from sockets import print_help, send_request, increament_clock, create_server, internal_process
 
-
+'''
+* Take input from Node of receiver node_id and message
+'''
 def sender(clock_val, self_id, port_list):
     while True:
         input_line = input().strip()  # ID Message
@@ -53,10 +55,13 @@ if __name__ == "__main__":
     port_list = json.loads(argv[2])
     node_count = len(port_list)
 
+    # Changing title of each Node's process
     os.system(f"title Node-{self_id} \tPort-{port_list[self_id-1]}")
 
+    # Initializing Vector clock for Node
     clock_val = [0]*node_count
 
+    # Thread for listening on assigned port, which uses create_server function from sockets.py
     t1 = threading.Thread(target=create_server, args=[self_id, port_list, clock_val])
     t1.start()
 
